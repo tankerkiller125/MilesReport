@@ -23,7 +23,7 @@
                                 <td>{{ $entry->fromLocation->name }}</td>
                                 <td>{{ $entry->toLocation->name }}</td>
                                 <td>{{ $entry->distance }}</td>
-                                <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="button btn-primary btn-xs" href="{{ url('/update/' . $entry->id) }}"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                                <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="button btn-primary btn-xs" onclick="location.href='{{ url('/update/' . $entry->id) }}';"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
                             </tr>
                         @endforeach
                         </tbody>

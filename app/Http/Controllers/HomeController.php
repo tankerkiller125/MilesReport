@@ -25,12 +25,9 @@ class HomeController extends Controller
     {
         if (\Auth::check()) {
             $user = \Auth::user();
-            if(!\Cache::has('entries.user.' . $user->id . '.page.' . \Request::get('page'))) {
-                $entries = Entry::whereUserId($user->id)->paginate(30);
-                \Cache::tags(['entries.user.' . $user->id])->put('entries.user.' . $user->id . '.page.' . \Request::get('page'), $entries);
-            } else {
-                $entries = \Cache::get('entries.user.' . $user->id . '.page.' . \Request::get('page'));
-            }
+            $entries = \Cache::remember('entries.user.' . $user->id . '.page.' . \Request::get('page'), 60, function() {
+                return Entry::whereUserId($user->id)->paginate(30);
+            });
             return view('home', ['entries' => $entries]);
         } else {
             return view('welcome');
