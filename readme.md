@@ -2,6 +2,11 @@
 
 Miles report is a web application for people who need to track where they have been for tax or business reasons.This program allows to add set locations and select between them. Google's Distance Matrix API (a requirement) takes care of measuring the distance.
 
+### Current Features
+* Add Locations (Manually in database)
+* Log entries
+* Automatic report email on schedule (default every 30 days)
+* User Authentication
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
