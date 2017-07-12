@@ -37,6 +37,7 @@ class CreateMilesLog extends Controller
             'time' => $distance->time,
             'mpg' => $request->input('mpg')
         ]);
+        \Cache::forget('entries.user.' . \Auth::user()->id . '.page.' . \Request::get('page'));
         return redirect()->back()->withErrors(['success' => 'Entry Added']);
     }
 

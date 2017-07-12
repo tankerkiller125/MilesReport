@@ -26,6 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Entry whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Entry whereUserId($value)
  * @mixin \Eloquent
+ * @property float $distance Miles traveled
+ * @property-read \App\Location $fromLocation
+ * @property-read \App\Location $toLocation
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entry whereDistance($value)
  */
 class Entry extends Model
 {

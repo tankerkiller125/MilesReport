@@ -20,7 +20,7 @@ Route::get('/update/{id}', 'Web\UpdateMilesLog@getUpdate');
 Route::post('/update/{id}', 'Web\UpdateMilesLog@update');
 
 Route::get('/test', function() {
-    dd(\App\Entry::whereId(1)->first()->fromLocation->name);
+    return Artisan::call('milesreport:send-user-report');
 });
 
 Auth::routes();

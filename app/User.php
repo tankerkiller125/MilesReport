@@ -24,6 +24,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $lastReport Last time user received report
+ * @property string $reportSchedule Days between reports
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastReport($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereReportSchedule($value)
  */
 class User extends Authenticatable
 {
@@ -35,7 +39,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'report_schedule'
     ];
 
     /**

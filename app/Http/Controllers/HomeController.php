@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         if (\Auth::check()) {
             $user = \Auth::user();
-            $entries = \Cache::remember('entries.user.' . $user->id . '.page.' . \Request::get('page'), 60, function() {
+            $entries = \Cache::remember('entries.user.' . $user->id . '.page.' . \Request::get('page'), 1, function() use ($user) {
                 return Entry::whereUserId($user->id)->paginate(30);
             });
             return view('home', ['entries' => $entries]);

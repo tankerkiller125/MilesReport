@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Location whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Location whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Entry $entryFrom
+ * @property-read \App\Entry $entryTo
  */
 class Location extends Model
 {
