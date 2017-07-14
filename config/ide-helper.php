@@ -151,7 +151,7 @@ return array(
      | Note, it is currently an all-or-nothing option.
      |
      */
-    'model_camel_case_properties' => true,
+    'model_camel_case_properties' => false,
 
     /*
     |--------------------------------------------------------------------------

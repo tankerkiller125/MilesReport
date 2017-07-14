@@ -10,16 +10,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $address
- * @property \Carbon\Carbon $createdAt
- * @property \Carbon\Carbon $updatedAt
- * @method static \Illuminate\Database\Query\Builder|\App\Location whereAddress($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Location whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Location whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Location whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Location whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
  * @property-read \App\Entry $entryFrom
  * @property-read \App\Entry $entryTo
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Location whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Location whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Location whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Location whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Location whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Location extends Model
 {

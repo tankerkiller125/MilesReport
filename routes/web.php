@@ -16,8 +16,11 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/create', 'Web\CreateMilesLog@showCreate')->middleware('auth');
 Route::post('/create', 'Web\CreateMilesLog@logMiles')->name('create')->middleware('auth');
 
-Route::get('/update/{id}', 'Web\UpdateMilesLog@getUpdate');
-Route::post('/update/{id}', 'Web\UpdateMilesLog@update');
+Route::get('/update/{id}', 'Web\UpdateMilesLog@getUpdate')->middleware('auth');
+Route::post('/update/{id}', 'Web\UpdateMilesLog@update')->name('update')->middleware('auth');
+
+Route::get('/delete/{id}', 'Web\DeleteMilesLog@getDelete')->middleware('auth');
+Route::post('/delete/{id}', 'Web\DeleteMilesLog@delete')->name('delete')->middleware('auth');
 
 Route::get('/test', function() {
     return Artisan::call('milesreport:send-user-report');
