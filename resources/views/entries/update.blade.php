@@ -15,7 +15,8 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="from" required>
                                     @foreach($locations as $location)
-                                        <option value="{{ $location->id }}" @if($entry->from == $location->id) selected @else @endif>{{ $location->name }}</option>
+                                        <option value="{{ $location->id }}"
+                                                @if($entry->from == $location->id) selected @else @endif>{{ $location->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -33,7 +34,8 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="to" required>
                                     @foreach($locations as $location)
-                                        <option value="{{ $location->id }}" @if($entry->to == $location->id) selected @else @endif>{{ $location->name }}</option>
+                                        <option value="{{ $location->id }}"
+                                                @if($entry->to == $location->id) selected @else @endif>{{ $location->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -63,7 +65,8 @@
                             <label for="password" class="col-md-4 control-label">Drive Date</label>
 
                             <div class="col-md-6">
-                                <input type="datetime" class="form-control" name="created_at" value="{{$entry->created_at}}">
+                                <input type="datetime" class="form-control" name="created_at"
+                                       value="{{$entry->created_at}}">
 
                                 @if ($errors->has('created_at'))
                                     <span class="help-block">

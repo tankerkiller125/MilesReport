@@ -33,11 +33,13 @@ class Entry extends Model
 {
     public $fillable = ['from', 'to', 'mpg', 'user_id', 'distance', 'time'];
 
-    public function fromLocation() {
+    public function fromLocation()
+    {
         return $this->hasOne('App\Location', 'id', 'from');
     }
 
-    public function toLocation() {
+    public function toLocation()
+    {
         return $this->hasOne('App\Location', 'id', 'to');
     }
 }

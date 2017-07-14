@@ -22,7 +22,7 @@ Route::post('/update/{id}', 'Web\UpdateMilesLog@update')->name('update')->middle
 Route::get('/delete/{id}', 'Web\DeleteMilesLog@getDelete')->middleware('auth');
 Route::post('/delete/{id}', 'Web\DeleteMilesLog@delete')->name('delete')->middleware('auth');
 
-Route::get('/test', function() {
+Route::get('/test', function () {
     return Artisan::call('milesreport:send-user-report');
 });
 

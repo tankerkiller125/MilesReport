@@ -4,12 +4,10 @@ namespace App\Console\Commands;
 
 use App\Entry;
 use App\Location;
+use App\Notifications\SendUserReport as Notification;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
-use \App\Notifications\SendUserReport as Notification;
-use Mockery\Exception;
-use Mockery\Matcher\Not;
 
 class SendUserReport extends Command
 {
@@ -44,7 +42,7 @@ class SendUserReport extends Command
      */
     public function handle()
     {
-        if($this->argument('user') == null) {
+        if ($this->argument('user') == null) {
             try {
                 $users = User::all();
 
@@ -90,14 +88,15 @@ class SendUserReport extends Command
      * @param $lastReport
      * @return string
      */
-    private function generateSheet($userId, $userName, $lastReport) {
-        $entries = Entry::whereUserId($userId)->whereDate('created_at', '>', $lastReport)->get()->map(function($entry) {
+    private function generateSheet($userId, $userName, $lastReport)
+    {
+        $entries = Entry::whereUserId($userId)->whereDate('created_at', '>', $lastReport)->get()->map(function ($entry) {
             $from = Location::whereId($entry->from)->first();
             $to = Location::whereId($entry->to)->first();
             return ['from' => $from->name, 'to' => $to->name, 'distance' => $entry->distance];
         });
-        $sheet = \Excel::create('Miles-Report-' . str_replace(' ', '-', $userName). '-' . Carbon::now()->format('F') . '-' . Carbon::now()->format('Y'), function ($excel) use($entries) {
-            $excel->sheet('Miles', function($sheet) use($entries) {
+        $sheet = \Excel::create('Miles-Report-' . str_replace(' ', '-', $userName) . '-' . Carbon::now()->format('F') . '-' . Carbon::now()->format('Y'), function ($excel) use ($entries) {
+            $excel->sheet('Miles', function ($sheet) use ($entries) {
                 $sheet->fromModel($entries);
             });
         })->store('csv', false, true);

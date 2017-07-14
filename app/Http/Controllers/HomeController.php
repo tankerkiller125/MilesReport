@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Entry;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -25,7 +24,7 @@ class HomeController extends Controller
     {
         if (\Auth::check()) {
             $user = \Auth::user();
-            $entries = \Cache::remember('entries.user.' . $user->id . '.page.' . \Request::get('page'), 1, function() use ($user) {
+            $entries = \Cache::remember('entries.user.' . $user->id . '.page.' . \Request::get('page'), 1, function () use ($user) {
                 return Entry::whereUserId($user->id)->paginate(30);
             });
             return view('home', ['entries' => $entries]);

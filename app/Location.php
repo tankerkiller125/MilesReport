@@ -23,11 +23,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Location extends Model
 {
-    public function entryFrom() {
+    public function entryFrom()
+    {
         return $this->belongsTo('App\Entry', 'from', 'id');
     }
 
-    public function entryTo() {
+    public function entryTo()
+    {
         return $this->belongsTo('App\Entry', 'to', 'id');
     }
 }
