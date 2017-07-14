@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 
 class DeleteMilesLog extends Controller
 {
-    public function getDelete()
+    public function getDelete(Entry $entry)
     {
-
+        return view('entries.delete', ['entry' => $entry]);
     }
 
     public function delete(Entry $entry)
