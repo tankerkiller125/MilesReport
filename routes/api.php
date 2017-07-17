@@ -16,3 +16,17 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => '/entries', 'middleware' => 'auth:api'], function () {
+    Route::get('/'); // Fetch Entries
+    Route::post('/'); // Creates Entry
+    Route::post('/{id}'); // Updates Entry
+    Route::delete('/{id}'); // Delete Entry
+});
+
+Route::group(['prefix' => '/locations', 'middleware' => 'auth:api'], function () {
+    Route::get('/'); // Get locations
+    Route::post('/'); // Create Location
+    Route::post('/{location}'); // Update Location
+    Route::delete('/{location}'); // Delete Location
+});
