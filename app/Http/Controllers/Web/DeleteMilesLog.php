@@ -16,9 +16,10 @@ class DeleteMilesLog extends Controller
     {
         if (\Auth::user()->id = $entry->user_id) {
             $entry->delete();
-            return redirect()->withErrors(['success' => 'Entry deleted successfully']);
+            \Cache::forget('entries.user.' . \Auth::user()->id . '.page.' . \Request::get('page'));
+            return redirect('/')->withErrors(['success' => 'Entry deleted successfully']);
         } else {
-            return redirect()->back()->withErrors(['error' => 'You do not have access to do that']);
+            return redirect()->back()->withErrors(['error' => 'Entry could not be deleted']);
         }
     }
 }

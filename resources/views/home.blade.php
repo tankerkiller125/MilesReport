@@ -15,6 +15,7 @@
                                 <th>To</th>
                                 <th>Miles</th>
                                 <th>Edit</th>
+                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -28,6 +29,13 @@
                                             <button class="button btn-primary btn-xs"
                                                     onclick="location.href='{{ url('/update/' . $entry->id) }}';"><span
                                                         class="glyphicon glyphicon-pencil"></span></button>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                            <button class="button btn-danger btn-xs"
+                                                    onclick="location.href='{{ url('/delete/' . $entry->id) }}';"><span
+                                                        class="glyphicon glyphicon-trash"></span></button>
                                         </p>
                                     </td>
                                 </tr>
