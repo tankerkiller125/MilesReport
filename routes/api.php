@@ -19,14 +19,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => '/entries', 'middleware' => 'auth:api'], function () {
     Route::get('/'); // Fetch Entries
-    Route::post('/'); // Creates Entry
-    Route::post('/{id}'); // Updates Entry
-    Route::delete('/{id}'); // Delete Entry
+    Route::post('/')->middleware('scope:create-entry'); // Creates Entry
+    Route::post('/{entry}')->middleware('scope:update-entry'); // Updates Entry
+    Route::delete('/{entry}')->middleware('scope:delete-entry'); // Delete Entry
 });
 
 Route::group(['prefix' => '/locations', 'middleware' => 'auth:api'], function () {
     Route::get('/'); // Get locations
-    Route::post('/'); // Create Location
-    Route::post('/{location}'); // Update Location
-    Route::delete('/{location}'); // Delete Location
+    Route::post('/')->middleware('scope:create-location'); // Create Location
+    Route::post('/{location}')->middleware('scope:update-location'); // Update Location
+    Route::delete('/{location}')->middleware('scope:delete-location'); // Delete Location
 });
