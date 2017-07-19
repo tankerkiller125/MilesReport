@@ -23,10 +23,12 @@ Route::get('/delete/{entry}', 'Web\DeleteMilesLog@getDelete')->middleware('auth'
 Route::post('/delete/{entry}', 'Web\DeleteMilesLog@delete')->name('delete')->middleware('auth');
 
 
-Route::get('/locations')->middleware('auth');
+Route::get('/locations', 'Web\ListLocations@listLocations')->middleware('auth');
 Route::get('/locations/create', function () {
     return view('locations.create');
 })->middleware('auth');
 Route::post('/locations/create', 'Web\CreateLocation@createLocation')->name('create-location')->middleware('auth');
+Route::get('/locations/update/{location}', 'Web\UpdateLocation@getLocation')->middleware('auth');
+Route::post('/locations/update/{location}', 'Web\UpdateLocation@updateLocation')->name('update-location')->middleware('auth');
 
 Auth::routes();
