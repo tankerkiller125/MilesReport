@@ -13,7 +13,7 @@
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input type="text" name="name" required>
+                                <input type="text" name="name" class="form-control" required>
 
                                 @if ($errors->has('name'))
                                     <span class="help-block">
@@ -27,7 +27,7 @@
                             <label for="address" class="col-md-4 control-label">Address</label>
 
                             <div class="col-md-6">
-                                <input type="text" name="address" required>
+                                <input type="text" name="address" class="form-control" required>
 
                                 @if ($errors->has('address'))
                                     <span class="help-block">
