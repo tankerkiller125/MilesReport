@@ -22,4 +22,11 @@ Route::post('/update/{entry}', 'Web\UpdateMilesLog@update')->name('update')->mid
 Route::get('/delete/{entry}', 'Web\DeleteMilesLog@getDelete')->middleware('auth');
 Route::post('/delete/{entry}', 'Web\DeleteMilesLog@delete')->name('delete')->middleware('auth');
 
+
+Route::get('/locations')->middleware('auth');
+Route::get('/locations/create', function () {
+    return view('locations.create');
+})->middleware('auth');
+Route::post('/locations/create', 'Web\CreateLocation@createLocation')->name('create-location')->middleware('auth');
+
 Auth::routes();

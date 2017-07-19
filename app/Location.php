@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Location extends Model
 {
+    protected $fillable = ['name', 'address'];
+
     public function entryFrom()
     {
         return $this->belongsTo('App\Entry', 'from', 'id');
