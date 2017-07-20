@@ -18,14 +18,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => '/entries', 'middleware' => 'auth:api'], function () {
-    Route::get('/'); // Fetch Entries
+    Route::get('/', function (Request $request) {
+        return response()->json(\App\Entry::whereUserId(Auth::user()->id)->paginate(($request->has('perPage') ? $request->get('perPage') : 15)));
+    }); // Fetch Entries
     Route::post('/')->middleware('scope:create-entry'); // Creates Entry
     Route::post('/{entry}')->middleware('scope:update-entry'); // Updates Entry
     Route::delete('/{entry}')->middleware('scope:delete-entry'); // Delete Entry
 });
 
 Route::group(['prefix' => '/locations', 'middleware' => 'auth:api'], function () {
-    Route::get('/'); // Get locations
+    Route::get('/', function () {
+        $locations = \Cache::remember('locations.list', 60, function () {
+            return \App\Location::all();
+        });
+        return response()->json($locations);
+    }); // Get locations
     Route::post('/')->middleware('scope:create-location'); // Create Location
     Route::post('/{location}')->middleware('scope:update-location'); // Update Location
     Route::delete('/{location}')->middleware('scope:delete-location'); // Delete Location
