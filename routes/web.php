@@ -31,4 +31,7 @@ Route::post('/locations/create', 'Web\CreateLocation@createLocation')->name('cre
 Route::get('/locations/update/{location}', 'Web\UpdateLocation@getLocation')->middleware('auth');
 Route::post('/locations/update/{location}', 'Web\UpdateLocation@updateLocation')->name('update-location')->middleware('auth');
 
+Route::get('/test', function () {
+    return Auth::getRecallerName();
+});
 Auth::routes();
