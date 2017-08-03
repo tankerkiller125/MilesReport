@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\User;
 use App\Entry;
 use App\Location;
-use App\Notifications\SendUserReport as Notification;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use App\Notifications\SendUserReport as Notification;
 
 class SendUserReport extends Command
 {
@@ -55,7 +55,7 @@ class SendUserReport extends Command
                         $user->last_report = Carbon::now();
                         $user->save();
                     } else {
-                        $this->info('Report not generated for ' . $user->name);
+                        $this->info('Report not generated for '.$user->name);
                     }
                 }
                 $this->info('Reports generated and sent!');
@@ -74,7 +74,7 @@ class SendUserReport extends Command
                     $user->save();
                     $this->info('Report generated!');
                 } else {
-                    $this->info('Report not generated for ' . $user->name);
+                    $this->info('Report not generated for '.$user->name);
                 }
             } catch (\Exception $e) {
                 $this->error($e->getMessage());
@@ -93,13 +93,15 @@ class SendUserReport extends Command
         $entries = Entry::whereUserId($userId)->whereDate('created_at', '>', $lastReport)->get()->map(function ($entry) {
             $from = Location::whereId($entry->from)->first();
             $to = Location::whereId($entry->to)->first();
+
             return ['from' => $from->name, 'to' => $to->name, 'distance' => $entry->distance];
         });
-        $sheet = \Excel::create('Miles-Report-' . str_replace(' ', '-', $userName) . '-' . Carbon::now()->format('F') . '-' . Carbon::now()->format('Y'), function ($excel) use ($entries) {
+        $sheet = \Excel::create('Miles-Report-'.str_replace(' ', '-', $userName).'-'.Carbon::now()->format('F').'-'.Carbon::now()->format('Y'), function ($excel) use ($entries) {
             $excel->sheet('Miles', function ($sheet) use ($entries) {
                 $sheet->fromModel($entries);
             });
         })->store('csv', false, true);
+
         return $sheet['file'];
     }
 }

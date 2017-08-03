@@ -4,16 +4,16 @@ namespace Tests\Browser;
 
 use App\User;
 use Faker\Factory;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
     /**
-     * Test login without remember me
+     * Test login without remember me.
      *
      * @return void
      */
@@ -21,7 +21,7 @@ class LoginTest extends DuskTestCase
     {
         $user = factory(User::class)->create([
             'email' => Factory::create()->email,
-            'report_schedule' => 30
+            'report_schedule' => 30,
         ]);
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visit('/login')
@@ -34,7 +34,7 @@ class LoginTest extends DuskTestCase
     }
 
     /**
-     * Test login with remember me token
+     * Test login with remember me token.
      *
      * @return void
      */
@@ -42,7 +42,7 @@ class LoginTest extends DuskTestCase
     {
         $user = \factory(User::class)->create([
             'email' => Factory::create()->email,
-            'report_schedule' => 30
+            'report_schedule' => 30,
         ]);
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visit('/login')
