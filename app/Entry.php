@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Entry
+ * App\Entry.
  *
  * @property int $id Entry ID
  * @property int $user_id User ID

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\Location;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UpdateLocation extends Controller
 {
@@ -17,12 +17,13 @@ class UpdateLocation extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string'],
-            'address' => ['required', 'string']
+            'address' => ['required', 'string'],
         ]);
         $location->name = $request->input('name');
         $location->address = $request->input('address');
         $location->save();
         \Cache::forget('locations.list');
+
         return redirect('/locations')->withErrors(['success' => 'Location updated successfully']);
     }
 }
