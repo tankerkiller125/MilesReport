@@ -14,6 +14,8 @@ Suggestions can be added in the issues tracker. We just ask that a very clear de
 
 This project contains a pull request template that is automatically applied. All you need to do is write the changes in the code and then fill out the template! Its literally that easy. With that said we have some standards that we expect.
 
+We also recommend that you use GPG verification for your commits. It's easy to implement and makes the security of the code and your account just a little better. Any commit regarding security of the application lacking a GPG signature may require further verification through email.
+
 #### Expected Coding Standards:
 This project uses the laravel style guide. Don't worry about following it too close as StyleCI will fix most of it for you.
 
