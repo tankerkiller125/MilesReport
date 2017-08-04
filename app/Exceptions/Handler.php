@@ -60,6 +60,7 @@ class Handler extends ExceptionHandler
                 'exception' => $exception,
             ], 500);
         }
+
         return parent::render($request, $exception);
     }
 
