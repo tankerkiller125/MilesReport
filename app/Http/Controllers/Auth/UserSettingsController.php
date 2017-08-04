@@ -8,6 +8,5 @@ class UserSettingsController extends Controller
 {
     public function updateUser()
     {
-
     }
 }
