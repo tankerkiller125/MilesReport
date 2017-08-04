@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Web;
 
 use App\Entry;
-use App\Http\Controllers\Controller;
 use App\Location;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UpdateMilesLog extends Controller
 {
     /**
-     * Get entry data and return view
+     * Get entry data and return view.
      *
      * @param Entry $entry
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
@@ -25,7 +25,7 @@ class UpdateMilesLog extends Controller
     }
 
     /**
-     * Update database entries
+     * Update database entries.
      *
      * @param Request $request
      * @param Entry $entry
@@ -39,7 +39,7 @@ class UpdateMilesLog extends Controller
                     'from' => ['required', 'exists:locations,id'],
                     'to' => ['required', 'different:from', 'exists:locations,id'],
                     'mpg' => ['nullable', 'integer'],
-                    'created_at' => ['required', 'date_format:"Y-m-d H:i:s"']
+                    'created_at' => ['required', 'date_format:"Y-m-d H:i:s"'],
                 ]);
                 $distance = $this->getDistance(Location::whereId($request->input('from')), Location::whereId($request->input('to')));
                 $entry->from = $request->input('from');
@@ -49,6 +49,7 @@ class UpdateMilesLog extends Controller
                 $entry->mpg = $request->input('mpg');
                 $entry->created_at = $request->input('created_at');
                 $entry->save();
+
                 return redirect()->back()->withErrors(['success' => 'Log entry successfully updated']);
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors(['error' => 'Log entry failed to update']);
@@ -59,7 +60,7 @@ class UpdateMilesLog extends Controller
     }
 
     /**
-     * Get distance and time from Google Distance Matrix API
+     * Get distance and time from Google Distance Matrix API.
      *
      * @param Location $origin
      * @param Location $destination
@@ -68,19 +69,19 @@ class UpdateMilesLog extends Controller
     public function getDistance(Location $origin, Location $destination)
     {
         $httpClient = new HttpClient();
-        $response = $httpClient->get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=' . $origin->address . '&destinations=' . $destination->address . '&key=' . config('services.google.key'));
+        $response = $httpClient->get('https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins='.$origin->address.'&destinations='.$destination->address.'&key='.config('services.google.key'));
         if ($response->getStatusCode() < 200 || $response->getStatusCode() >= 400) {
             // Return an error if we can not access google
             return abort(500, 'We could not get the distance information from google. Did you put your google API key in the config? And did you enable the Distance Matrix API?');
         }
         // This is the raw data from Google converted to json
-        $rawData = (object)\GuzzleHttp\json_decode($response->getBody());
+        $rawData = (object) \GuzzleHttp\json_decode($response->getBody());
 
         // This is the raw miles (meters to miles)
         $cleanDistance = $rawData->rows[0]->elements[0]->distance->value / 1609.344;
         // This is the seconds converted to minutes
         $cleanTime = $rawData->rows[0]->elements[0]->duration->value / 60;
         // Return the distance value
-        return (object)['distance' => (float)substr($cleanDistance, 0, 4), 'time' => (integer)$cleanTime];
+        return (object) ['distance' => (float) substr($cleanDistance, 0, 4), 'time' => (int) $cleanTime];
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class SendUserReport extends Notification
 {
@@ -44,8 +44,8 @@ class SendUserReport extends Notification
         return (new MailMessage)
             ->subject('Miles Report')
             ->line('This is your miles report :)')
-            ->action('You can open your report here if you can not open the attachment', url('/exports/' . $this->filename))
-            ->line('Thanks for using the application!')->attach(public_path('/exports') . '/' . $this->filename);
+            ->action('You can open your report here if you can not open the attachment', url('/exports/'.$this->filename))
+            ->line('Thanks for using the application!')->attach(public_path('/exports').'/'.$this->filename);
     }
 
     /**
