@@ -22,7 +22,7 @@
                             <tbody>
                             @foreach($entries as $entry)
                                 <tr>
-                                    <td>{{ $entry->created_at }}</td>
+                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $entry->created_at)->toDateString() }}</td>
                                     <td>{{ $entry->fromLocation->name }}</td>
                                     <td>{{ $entry->toLocation->name }}</td>
                                     <td>{{ $entry->distance }}</td>
