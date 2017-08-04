@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\CreateReport;
 use App\User;
+use App\Jobs\CreateReport;
 use Illuminate\Console\Command;
 
 class SendUserReport extends Command

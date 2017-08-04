@@ -7,7 +7,7 @@ use Closure;
 class APIMiddleWare
 {
     const PARSED_METHODS = [
-        'POST', 'PUT', 'PATCH'
+        'POST', 'PUT', 'PATCH',
     ];
 
     /**
@@ -20,8 +20,9 @@ class APIMiddleWare
     public function handle($request, Closure $next)
     {
         if (in_array($request->getMethod(), self::PARSED_METHODS)) {
-            $request->merge((array)json_decode($request->getContent()));
+            $request->merge((array) json_decode($request->getContent()));
         }
+
         return $next($request);
     }
 }

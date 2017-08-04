@@ -2,16 +2,16 @@
 
 namespace App\Jobs;
 
+use App\User;
 use App\Entry;
 use App\Location;
-use App\Notifications\SendUserReport as Notification;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Notifications\SendUserReport as Notification;
 
 class CreateReport implements ShouldQueue
 {
@@ -56,13 +56,15 @@ class CreateReport implements ShouldQueue
         $entries = Entry::whereUserId($userId)->whereDate('created_at', '>', $lastReport)->get()->map(function ($entry) {
             $from = Location::whereId($entry->from)->first();
             $to = Location::whereId($entry->to)->first();
+
             return ['from' => $from->name, 'to' => $to->name, 'distance' => $entry->distance];
         });
-        $sheet = \Excel::create('Miles-Report-' . str_replace(' ', '-', $userName) . '-' . Carbon::now()->format('F') . '-' . Carbon::now()->format('Y'), function ($excel) use ($entries) {
+        $sheet = \Excel::create('Miles-Report-'.str_replace(' ', '-', $userName).'-'.Carbon::now()->format('F').'-'.Carbon::now()->format('Y'), function ($excel) use ($entries) {
             $excel->sheet('Miles', function ($sheet) use ($entries) {
                 $sheet->fromModel($entries);
             });
         })->store('csv', false, true);
+
         return $sheet['file'];
     }
 }
