@@ -22,7 +22,7 @@
                             <tbody>
                             @foreach($entries as $entry)
                                 <tr>
-                                    <td>{{ $entry->createdAt }}</td>
+                                    <td>{{ $entry->created_at }}</td>
                                     <td>{{ $entry->fromLocation->name }}</td>
                                     <td>{{ $entry->toLocation->name }}</td>
                                     <td>{{ $entry->distance }}</td>
