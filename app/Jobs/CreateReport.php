@@ -39,11 +39,9 @@ class CreateReport implements ShouldQueue
         if (Carbon::createFromFormat('Y-m-d H:i:s', $this->user->last_report)->addDays($this->user->report_schedule)->diffInDays(Carbon::now()) == 0) {
             // Get all entries from last report sent to now
             $sheet = $this->generateSheet($this->user->id, $this->user->name, $this->user->last_report);
-            $this->user->notify(new Notification($sheet));
+            $this->user->notify((new Notification($sheet))->onQueue('report-emails'));
             $this->user->last_report = Carbon::now();
             $this->user->save();
-        } else {
-            dd(false);
         }
     }
 
