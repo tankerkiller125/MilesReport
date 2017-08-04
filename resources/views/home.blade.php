@@ -11,6 +11,7 @@
                         <table class="table">
                             <thead>
                             <tr>
+                                <th>Created</th>
                                 <th>From</th>
                                 <th>To</th>
                                 <th>Miles</th>
@@ -21,6 +22,7 @@
                             <tbody>
                             @foreach($entries as $entry)
                                 <tr>
+                                    <td>{{ $entry->createdDate }}</td>
                                     <td>{{ $entry->fromLocation->name }}</td>
                                     <td>{{ $entry->toLocation->name }}</td>
                                     <td>{{ $entry->distance }}</td>

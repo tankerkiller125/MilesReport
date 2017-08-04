@@ -12,5 +12,8 @@ This project was made because I travel for work between offices a lot. And the p
 * User Authentication
 * API (WIP)
 
+## Documentation
+Documentation can be found on the [Wiki](https://github.com/tankerkiller125/MilesReport/wiki)
+
 ## License
 This project is licensed under the GPLv3 License

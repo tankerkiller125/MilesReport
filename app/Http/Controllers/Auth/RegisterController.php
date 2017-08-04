@@ -69,6 +69,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'report_schedule' => 30,
             'last_report' => Carbon::now(),
+
         ]);
     }
 }

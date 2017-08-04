@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\User;
 use App\Jobs\CreateReport;
 use Illuminate\Console\Command;
+use App\Notifications\SendUserReport as Notification;
 
 class SendUserReport extends Command
 {
