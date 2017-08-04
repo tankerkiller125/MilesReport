@@ -36,7 +36,7 @@ return [
     ],
 
     'google' => [
-        'key' => env('GOOGLE_KEY', null)
+        'key' => env('GOOGLE_KEY', null),
     ],
 
 ];
