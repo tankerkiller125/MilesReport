@@ -31,3 +31,8 @@ Route::get('/locations/update/{location}', 'Web\UpdateLocation@getLocation')->mi
 Route::post('/locations/update/{location}', 'Web\UpdateLocation@updateLocation')->name('update-location')->middleware('auth');
 
 Auth::routes();
+
+Route::get('/settings', function () {
+    return view('user.settings', ['user' => Auth::getUser()]);
+})->middleware('auth');
+Route::post('/settings')->name('settings')->middleware('auth');
