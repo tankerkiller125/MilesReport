@@ -43,9 +43,9 @@ class SendUserReport extends Notification
     {
         return (new MailMessage)
             ->subject('Miles Report')
-            ->line('This is your miles report :)')
-            ->action('You can open your report here if you can not open the attachment', url('/exports/'.$this->filename))
-            ->line('Thanks for using the application!')->attach(public_path('/exports').'/'.$this->filename);
+            ->greeting('Here is your miles report')
+            ->action('Link to Report (Attachment)', url('/exports/'.$this->filename))
+            ->attach(public_path('/exports').'/'.$this->filename);
     }
 
     /**
