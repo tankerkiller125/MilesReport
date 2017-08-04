@@ -8,6 +8,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    public $sentryId;
     /**
      * A list of the exception types that should not be reported.
      *
@@ -32,6 +33,15 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if (config('sentry.dsn')) {
+            if ($this->shouldReport($exception)) {
+                $sentry = app('sentry');
+                if (\Auth::check()) {
+                    $sentry->user_context(['email' => \Auth::getUser()->email]);
+                }
+                $this->sentryId = $sentry->captureException($exception);
+            }
+        }
         parent::report($exception);
     }
 
@@ -44,6 +54,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \ErrorException) {
+            return response()->view('errors.500', [
+                'sentryID' => $this->sentryId,
+                'exception' => $exception,
+            ], 500);
+        }
         return parent::render($request, $exception);
     }
 
