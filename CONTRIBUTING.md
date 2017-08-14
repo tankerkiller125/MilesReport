@@ -26,3 +26,4 @@ This project uses the laravel style guide. Don't worry about following it too cl
 
 **Major Breaking Changes** go to the `develop` branch
 
+"maatwebsite/excel": "~2.1.0",
