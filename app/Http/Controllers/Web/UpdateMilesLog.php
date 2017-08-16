@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Entry;
-use App\Location;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Location;
+use GuzzleHttp\Client as HttpClient;
+use Illuminate\Http\Request;
 
 class UpdateMilesLog extends Controller
 {
@@ -41,9 +42,11 @@ class UpdateMilesLog extends Controller
                     'mpg' => ['nullable', 'integer'],
                     'created_at' => ['required', 'date_format:"Y-m-d H:i:s"'],
                 ]);
-                $distance = $this->getDistance(Location::whereId($request->input('from')), Location::whereId($request->input('to')));
-                $entry->from = $request->input('from');
-                $entry->to = $request->input('to');
+                $origin = Location::whereId($request->input('from'))->first(['id', 'address']);
+                $destination = Location::whereId($request->input('to'))->first(['id', 'address']);
+                $distance = $this->getDistance($origin, $destination);
+                $entry->from = $origin->id;
+                $entry->to = $destination->id;
                 $entry->distance = $distance->distance;
                 $entry->time = $distance->time;
                 $entry->mpg = $request->input('mpg');
