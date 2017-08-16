@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserSettingsController extends Controller
 {
@@ -19,7 +19,7 @@ class UserSettingsController extends Controller
             'username' => 'string,nullable',
             'report_schedule' => 'integer,nullable',
             'old_password' => 'nullable',
-            'new_password' => ''
+            'new_password' => '',
         ]);
         $user = \Auth::getUser();
         if ($request->input('username')) {
@@ -39,9 +39,10 @@ class UserSettingsController extends Controller
         if (\Hash::check($oldPassword, $user->password)) {
             $user->password = \Hash::make($newPassword);
             $user->save();
+
             return true;
         } else {
             return false;
-        };
+        }
     }
 }
