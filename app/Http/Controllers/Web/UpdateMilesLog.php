@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\Entry;
-use App\Http\Controllers\Controller;
 use App\Location;
-use GuzzleHttp\Client as HttpClient;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use GuzzleHttp\Client as HttpClient;
 
 class UpdateMilesLog extends Controller
 {
