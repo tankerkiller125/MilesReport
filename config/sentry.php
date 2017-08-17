@@ -5,7 +5,7 @@ return [
     'public_dsn' => env('PUBLIC_SENTRY_DSN'),
 
     // capture release as git sha
-    'release' => trim(exec('git log --pretty="%h" -n1 HEAD')),
+    'release' => trim(exec('git describe --tags --abbrev=0')),
 
     // Capture bindings on SQL queries
     'breadcrumbs.sql_bindings' => true,

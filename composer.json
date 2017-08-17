@@ -1,6 +1,6 @@
 {
-  "name": "laravel/laravel",
-  "description": "The Laravel Framework.",
+  "name": "tankerkiller125/MilesReport",
+  "description": "MilesReport tracks the mileage from office to office",
   "keywords": [
     "framework",
     "laravel"
