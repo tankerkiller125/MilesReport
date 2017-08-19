@@ -2,9 +2,10 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class SendUserReport extends Notification
 {
@@ -41,11 +42,7 @@ class SendUserReport extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('Miles Report')
-            ->greeting('Here is your miles report')
-            ->action('Link to Report (Attachment)', url('/exports/'.$this->filename))
-            ->attach(public_path('/exports').'/'.$this->filename);
+        return (new MailMessage)->subject('Miles Report '.Carbon::now()->month.' '.Carbon::now()->year)->greeting('Here is your miles report')->action('Link to Report (Attachment)', url('/exports/'.$this->filename))->attach(public_path('/exports').'/'.$this->filename);
     }
 
     /**
@@ -56,8 +53,7 @@ class SendUserReport extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
+        return [//
         ];
     }
 }
