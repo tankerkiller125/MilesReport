@@ -2,16 +2,16 @@
 
 namespace App\Jobs;
 
+use App\User;
 use App\Entry;
 use App\Location;
-use App\Notifications\SendUserReport as Notification;
-use App\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Notifications\SendUserReport as Notification;
 
 class CreateReport implements ShouldQueue
 {
