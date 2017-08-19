@@ -66,7 +66,7 @@ class CreateReport implements ShouldQueue
             $excel->sheet('Miles', function ($sheet) use ($entries) {
                 $sheet->fromModel($entries);
             });
-        })->store('csv', false, true);
+        })->store('xlsx', false, true);
 
         return $sheet['file'];
     }
