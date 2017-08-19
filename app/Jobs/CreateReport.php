@@ -2,16 +2,16 @@
 
 namespace App\Jobs;
 
-use App\User;
 use App\Entry;
 use App\Location;
+use App\Notifications\SendUserReport as Notification;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Notifications\SendUserReport as Notification;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class CreateReport implements ShouldQueue
 {
@@ -19,13 +19,16 @@ class CreateReport implements ShouldQueue
 
     protected $user;
 
+    protected $force;
+
     /**
      * CreateReport constructor.
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, $force)
     {
         $this->user = $user;
+        $this->force = $force;
     }
 
     /**
@@ -36,7 +39,7 @@ class CreateReport implements ShouldQueue
     public function handle()
     {
         // This crazy compare determines if the user wants the message sent today or if its too soon
-        if (Carbon::createFromFormat('Y-m-d H:i:s', $this->user->last_report)->addDays($this->user->report_schedule)->diffInDays(Carbon::now()) == 0) {
+        if (Carbon::createFromFormat('Y-m-d H:i:s', $this->user->last_report)->addDays($this->user->report_schedule)->diffInDays(Carbon::now()) == 0 || $this->force === true) {
             // Get all entries from last report sent to now
             $sheet = $this->generateSheet($this->user->id, $this->user->name, $this->user->last_report);
             $this->user->notify((new Notification($sheet))->onQueue('report-emails'));

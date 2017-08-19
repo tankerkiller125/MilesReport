@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\User;
 use App\Jobs\CreateReport;
+use App\User;
 use Illuminate\Console\Command;
 
 class SendUserReport extends Command
@@ -39,12 +39,16 @@ class SendUserReport extends Command
      */
     public function handle()
     {
+        if ($this->option('force')) {
+            $force = true;
+        } else {
+            $force = false;
+        }
         if ($this->argument('user') == null) {
             try {
                 $users = User::all();
-
                 foreach ($users as $user) {
-                    dispatch((new CreateReport($user))->onQueue('reports'));
+                    dispatch((new CreateReport($user, $force))->onQueue('reports'));
                 }
                 $this->info('Reports generated and sent!');
             } catch (\Exception $e) {
@@ -53,7 +57,8 @@ class SendUserReport extends Command
         } else {
             try {
                 $user = User::whereId($this->argument('user'))->first();
-                dispatch((new CreateReport($user))->onQueue('reports'));
+                dispatch((new CreateReport($user, $force))->onQueue('reports'));
+                $this->info('Reports generated and sent!');
             } catch (\Exception $e) {
                 $this->error($e->getMessage());
             }
