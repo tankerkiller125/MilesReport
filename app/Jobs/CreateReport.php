@@ -60,9 +60,9 @@ class CreateReport implements ShouldQueue
             $from = Location::whereId($entry->from)->first();
             $to = Location::whereId($entry->to)->first();
 
-            return ['from' => $from->name, 'to' => $to->name, 'distance' => $entry->distance];
+            return ['Date' -> Carbon::createFromFormat('Y-m-d H:i:s', $entry->created_at)->format('m/d/Y'),'From' => $from->name, 'To' => $to->name, 'Distance' => $entry->distance];
         });
-        $sheet = \Excel::create('Miles-Report-'.str_replace(' ', '-', $userName).'-'.Carbon::now()->format('F').'-'.Carbon::now()->format('Y'), function ($excel) use ($entries) {
+        $sheet = \Excel::create('Miles-Report-'.str_replace(' ', '-', $userName).'-'.Carbon::now()->format('F-Y'), function ($excel) use ($entries) {
             $excel->sheet('Miles', function ($sheet) use ($entries) {
                 $sheet->fromModel($entries);
             });
